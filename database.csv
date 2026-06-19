@@ -1,0 +1,30 @@
+A001;Arduino Uno;Mikro;5;Rak A-1;Tersedia;Lab;Ijar
+E001;ESP32 Dev;Mikro;12;Rak A-2;Tersedia;Lab;Ijar
+S001;DHT22;Sensor;20;Box B-1;Tersedia;Mandiri;Jek
+R001;Raspberry Pi;Komputer;2;Rak C-1;Dipinjam;Lab;Ijar
+M001;Servo SG90;Motor;0;Box B-2;Habis;Lab;Arvin
+A002;Arduino Nano;Mikro;10;Rak A-1;Tersedia;Lab;Ijar
+E002;ESP8266 Node;Mikro;8;Rak A-2;Tersedia;Lab;Ijar
+S002;LDR Sensor;Sensor;50;Box B-1;Tersedia;Lab;Arvin
+S003;HC-SR04;Sensor;15;Box B-1;Tersedia;Mandiri;Jek
+M002;DC Motor;Motor;5;Box B-2;Tersedia;Lab;Arvin
+D001;LCD 16x2;Display;7;Box C-2;Tersedia;Lab;Ijar
+D002;OLED 0.96;Display;4;Box C-2;Tersedia;Mandiri;Jek
+W001;Jumper F-F;Kabel;100;Box D-1;Tersedia;Lab;Arvin
+W002;Jumper M-M;Kabel;100;Box D-1;Tersedia;Lab;Arvin
+O001;Breadboard;Pendukung;12;Rak C-3;Tersedia;Lab;Ijar
+A003;Arduino Mega;Mikro;3;Rak A-3;Tersedia;Lab;Ijar
+E003;ESP32 CAM;Mikro;6;Rak A-4;Tersedia;Lab;Ijar
+S004;BMP280;Sensor;10;Box B-3;Tersedia;Mandiri;Jek
+S005;MPU6050;Sensor;8;Box B-3;Tersedia;Lab;Arvin
+M003;Stepper Nema;Motor;4;Box B-4;Tersedia;Lab;Arvin
+D003;LCD 20x4;Display;5;Box C-3;Tersedia;Lab;Ijar
+W003;Jumper F-M;Kabel;100;Box D-2;Tersedia;Lab;Arvin
+O002;Relay 4Ch;Pendukung;8;Box D-3;Tersedia;Lab;Ijar
+O003;Keypad 4x4;Pendukung;15;Box D-3;Tersedia;Lab;Ijar
+S006;PIR Sensor;Sensor;12;Box B-4;Tersedia;Mandiri;Jek
+S007;Rain Sensor;Sensor;9;Box B-4;Tersedia;Lab;Arvin
+M004;Driver L298N;Motor;6;Box B-5;Tersedia;Lab;Arvin
+D004;TFT 2.4;Display;3;Box C-4;Tersedia;Lab;Ijar
+W004;Kabel USB;Kabel;20;Box D-4;Tersedia;Lab;Arvin
+O004;Resistor Box;Pendukung;50;Rak C-4;Tersedia;Lab;Ijar
