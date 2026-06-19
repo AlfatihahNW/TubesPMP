@@ -8,24 +8,24 @@ int jumlah_node = 0;
 
 int getKategori(char* str) {
 #ifdef ARDUINO
-    if(strcmp_P(str, PSTR("Mikro")) == 0 || strcmp_P(str, PSTR("1")) == 0) return 0;
+    if(strcmp_P(str, PSTR("Mikon")) == 0 || strcmp_P(str, PSTR("1")) == 0) return 0;
     if(strcmp_P(str, PSTR("Sensor")) == 0 || strcmp_P(str, PSTR("2")) == 0) return 1;
-    if(strcmp_P(str, PSTR("Motor")) == 0 || strcmp_P(str, PSTR("3")) == 0) return 2;
+    if(strcmp_P(str, PSTR("Aktuator")) == 0 || strcmp_P(str, PSTR("3")) == 0) return 2;
     if(strcmp_P(str, PSTR("Display")) == 0 || strcmp_P(str, PSTR("4")) == 0) return 3;
     if(strcmp_P(str, PSTR("Kabel")) == 0 || strcmp_P(str, PSTR("5")) == 0) return 4;
     if(strcmp_P(str, PSTR("Komputer")) == 0 || strcmp_P(str, PSTR("6")) == 0) return 5;
-    if(strcmp_P(str, PSTR("Pendukung")) == 0 || strcmp_P(str, PSTR("7")) == 0) return 6;
-    if(strcmp_P(str, PSTR("Modul")) == 0 || strcmp_P(str, PSTR("8")) == 0) return 7;
+    if(strcmp_P(str, PSTR("Driver")) == 0 || strcmp_P(str, PSTR("7")) == 0) return 6;
+    if(strcmp_P(str, PSTR("Miscelaneous")) == 0 || strcmp_P(str, PSTR("8")) == 0) return 7;
     return 8;
 #else
-    if(strcmp(str, "Mikro") == 0 || strcmp(str, "1") == 0) return 0;
+    if(strcmp(str, "Mikon") == 0 || strcmp(str, "1") == 0) return 0;
     if(strcmp(str, "Sensor") == 0 || strcmp(str, "2") == 0) return 1;
-    if(strcmp(str, "Motor") == 0 || strcmp(str, "3") == 0) return 2;
+    if(strcmp(str, "Aktuator") == 0 || strcmp(str, "3") == 0) return 2;
     if(strcmp(str, "Display") == 0 || strcmp(str, "4") == 0) return 3;
     if(strcmp(str, "Kabel") == 0 || strcmp(str, "5") == 0) return 4;
     if(strcmp(str, "Komputer") == 0 || strcmp(str, "6") == 0) return 5;
-    if(strcmp(str, "Pendukung") == 0 || strcmp(str, "7") == 0) return 6;
-    if(strcmp(str, "Modul") == 0 || strcmp(str, "8") == 0) return 7;
+    if(strcmp(str, "Driver") == 0 || strcmp(str, "7") == 0) return 6;
+    if(strcmp(str, "Miscelaneous") == 0 || strcmp(str, "8") == 0) return 7;
     return 8;
 #endif
 }
@@ -45,14 +45,14 @@ int getStatus(char* str) {
 }
 
 void printKategori(int k) {
-    if(k==0) printf("Mikro");
+    if(k==0) printf("Mikon");
     else if(k==1) printf("Sensor");
-    else if(k==2) printf("Motor");
+    else if(k==2) printf("Aktuator");
     else if(k==3) printf("Display");
     else if(k==4) printf("Kabel");
     else if(k==5) printf("Komputer");
-    else if(k==6) printf("Pendukung");
-    else if(k==7) printf("Modul");
+    else if(k==6) printf("Driver");
+    else if(k==7) printf("Miscelaneous");
     else printf("Lainnya");
 }
 
@@ -69,7 +69,7 @@ void tambahBarang() {
         char dummy[20];
         printf("ID (maks 7 karakter):\n"); bacaInput(dummy, 8);
         printf("Nama (maks 15 karakter):\n"); bacaInput(dummy, 16);
-        printf("Kategori (1=Mikro, 2=Sensor, 3=Motor, 4=Display, 5=Kabel, 6=Komputer, 7=Pendukung, 8=Modul, 9=Lainnya):\n"); bacaInput(dummy, 20);
+        printf("Kategori (1=Mikon, 2=Sensor, 3=Aktuator, 4=Display, 5=Kabel, 6=Komputer, 7=Driver, 8=Miscelaneous, 9=Lainnya):\n"); bacaInput(dummy, 20);
         printf("Stok (angka bulat):\n"); bacaInput(dummy, 10);
         printf("Lokasi (maks 7 karakter):\n"); bacaInput(dummy, 8);
         printf("Status (1=Tersedia, 2=Dipinjam, 3=Rusak):\n"); bacaInput(dummy, 20);
@@ -96,7 +96,7 @@ void tambahBarang() {
         printf("ID duplikat!\n");
         char dummy[20];
         printf("Nama (maks 15 karakter):\n"); bacaInput(dummy, 16);
-        printf("Kategori (1=Mikro, 2=Sensor, 3=Motor, 4=Display, 5=Kabel, 6=Komputer, 7=Pendukung, 8=Modul, 9=Lainnya):\n"); bacaInput(dummy, 20);
+        printf("Kategori (1=Mikon, 2=Sensor, 3=Aktuator, 4=Display, 5=Kabel, 6=Komputer, 7=Driver, 8=Miscelaneous, 9=Lainnya):\n"); bacaInput(dummy, 20);
         printf("Stok (angka bulat):\n"); bacaInput(dummy, 10);
         printf("Lokasi (maks 7 karakter):\n"); bacaInput(dummy, 8);
         printf("Status (1=Tersedia, 2=Dipinjam, 3=Rusak):\n"); bacaInput(dummy, 20);
@@ -110,7 +110,7 @@ void tambahBarang() {
         printf("Kapasitas memori hampir habis!\n");
         char dummy[20];
         printf("Nama (maks 15 karakter):\n"); bacaInput(dummy, 16);
-        printf("Kategori (1=Mikro, 2=Sensor, 3=Motor, 4=Display, 5=Kabel, 6=Komputer, 7=Pendukung, 8=Modul, 9=Lainnya):\n"); bacaInput(dummy, 20);
+        printf("Kategori (1=Mikon, 2=Sensor, 3=Aktuator, 4=Display, 5=Kabel, 6=Komputer, 7=Driver, 8=Miscelaneous, 9=Lainnya):\n"); bacaInput(dummy, 20);
         printf("Stok (angka bulat):\n"); bacaInput(dummy, 10);
         printf("Lokasi (maks 7 karakter):\n"); bacaInput(dummy, 8);
         printf("Status (1=Tersedia, 2=Dipinjam, 3=Rusak):\n"); bacaInput(dummy, 20);
@@ -126,7 +126,7 @@ void tambahBarang() {
     strcpy(node->id, temp_id);
     printf("Nama (maks 15 karakter):\n");
     bacaInput(node->nama, 16);
-    printf("Kategori (1=Mikro, 2=Sensor, 3=Motor, 4=Display, 5=Kabel, 6=Komputer, 7=Pendukung, 8=Modul, 9=Lainnya):\n");
+    printf("Kategori (1=Mikon, 2=Sensor, 3=Aktuator, 4=Display, 5=Kabel, 6=Komputer, 7=Driver, 8=Miscelaneous, 9=Lainnya):\n");
     bacaInput(temp_kategori, 20);
     node->kategori = getKategori(temp_kategori);
     printf("Stok (angka bulat):\n");
