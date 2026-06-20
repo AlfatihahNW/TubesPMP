@@ -64,17 +64,8 @@ void printStatus(int s) {
 }
 
 void tambahBarang() {
-    if(jumlah_node >= 25) {
-        printf("Kapasitas memori hampir habis!\n");
-        char dummy[20];
-        printf("ID (maks 7 karakter):\n"); bacaInput(dummy, 8);
-        printf("Nama (maks 15 karakter):\n"); bacaInput(dummy, 16);
-        printf("Kategori (1=Mikon, 2=Sensor, 3=Aktuator, 4=Display, 5=Kabel, 6=Komputer, 7=Driver, 8=Miscelaneous, 9=Lainnya):\n"); bacaInput(dummy, 20);
-        printf("Stok (angka bulat):\n"); bacaInput(dummy, 10);
-        printf("Lokasi (maks 7 karakter):\n"); bacaInput(dummy, 8);
-        printf("Status (1=Tersedia, 2=Dipinjam, 3=Rusak):\n"); bacaInput(dummy, 20);
-        printf("Pemilik (maks 7 karakter):\n"); bacaInput(dummy, 8);
-        printf("PIC (maks 7 karakter):\n"); bacaInput(dummy, 8);
+    if(jumlah_node >= 27) {
+        printf("Kapasitas memori sudah penuh!\n");
         return;
     }
 
@@ -93,29 +84,13 @@ void tambahBarang() {
     }
     
     if(duplicate) {
-        printf("ID duplikat!\n");
-        char dummy[20];
-        printf("Nama (maks 15 karakter):\n"); bacaInput(dummy, 16);
-        printf("Kategori (1=Mikon, 2=Sensor, 3=Aktuator, 4=Display, 5=Kabel, 6=Komputer, 7=Driver, 8=Miscelaneous, 9=Lainnya):\n"); bacaInput(dummy, 20);
-        printf("Stok (angka bulat):\n"); bacaInput(dummy, 10);
-        printf("Lokasi (maks 7 karakter):\n"); bacaInput(dummy, 8);
-        printf("Status (1=Tersedia, 2=Dipinjam, 3=Rusak):\n"); bacaInput(dummy, 20);
-        printf("Pemilik (maks 7 karakter):\n"); bacaInput(dummy, 8);
-        printf("PIC (maks 7 karakter):\n"); bacaInput(dummy, 8);
+        printf("ID duplikat! Batal menambah data.\n");
         return;
     }
     
     Barang* node = (Barang*)malloc(sizeof(Barang));
     if (node == NULL) {
-        printf("Kapasitas memori hampir habis!\n");
-        char dummy[20];
-        printf("Nama (maks 15 karakter):\n"); bacaInput(dummy, 16);
-        printf("Kategori (1=Mikon, 2=Sensor, 3=Aktuator, 4=Display, 5=Kabel, 6=Komputer, 7=Driver, 8=Miscelaneous, 9=Lainnya):\n"); bacaInput(dummy, 20);
-        printf("Stok (angka bulat):\n"); bacaInput(dummy, 10);
-        printf("Lokasi (maks 7 karakter):\n"); bacaInput(dummy, 8);
-        printf("Status (1=Tersedia, 2=Dipinjam, 3=Rusak):\n"); bacaInput(dummy, 20);
-        printf("Pemilik (maks 7 karakter):\n"); bacaInput(dummy, 8);
-        printf("PIC (maks 7 karakter):\n"); bacaInput(dummy, 8);
+        printf("Kapasitas memori sudah penuh! Batal menambah data.\n");
         return;
     }
     
@@ -137,6 +112,9 @@ void tambahBarang() {
     printf("Status (1=Tersedia, 2=Dipinjam, 3=Rusak):\n");
     bacaInput(temp_status, 20);
     node->status = getStatus(temp_status);
+    if(node->stok == 0) {
+        node->status = 3;
+    }
     printf("Pemilik (maks 7 karakter):\n");
     bacaInput(node->pemilik, 8);
     printf("PIC (maks 7 karakter):\n");
@@ -151,7 +129,13 @@ void tambahBarang() {
         temp->next = node;
     }
     jumlah_node++;
-    printf("Berhasil menambahkan data.\n");
+    if(jumlah_node == 27) {
+        printf("Kapasitas memori sudah penuh!\n");
+    } else if(jumlah_node >= 25) {
+        printf("Kapasitas memori hampir habis!\n");
+    } else {
+        printf("Berhasil menambahkan data.\n");
+    }
 }
 
 void hapusBarang(char* id) {
@@ -205,23 +189,25 @@ void cari(char* id) {
     printf("Data tidak ditemukan.\n");
 }
 
-void updateStok(char* id, int stok_baru) {
+void updateStok(char* id, int perubahan_stok) {
     if(database == NULL) {
         printf("Data kosong.\n");
-        return;
-    }
-    if(stok_baru < 0) {
-        printf("Stok tidak mencukupi.\n");
         return;
     }
     Barang* temp = database;
     while(temp != NULL) {
         if(strcmp(temp->id, id) == 0) {
-            temp->stok = stok_baru;
-            if(stok_baru == 0) {
-                temp->status = 3; 
+            if(temp->stok + perubahan_stok < 0) {
+                printf("Gagal, Stok tidak mencukupi untuk diambil sebanyak itu (stok saat ini: %d).\n", temp->stok);
+                return;
             }
-            printf("Stok berhasil diperbarui.\n");
+            temp->stok = temp->stok + perubahan_stok;
+            if(temp->stok == 0) {
+                temp->status = 3; 
+            } else if(temp->status == 3 && temp->stok > 0) {
+                temp->status = 0;
+            }
+            printf("Stok berhasil diperbarui. Stok baru: %d\n", temp->stok);
             return;
         }
         temp = temp->next;
@@ -237,7 +223,12 @@ void updateStatus(char* id, char* status_baru) {
     Barang* temp = database;
     while(temp != NULL) {
         if(strcmp(temp->id, id) == 0) {
-            temp->status = getStatus(status_baru);
+            int new_stat = getStatus(status_baru);
+            if(temp->stok == 0 && new_stat != 3) {
+                printf("Gagal: Stok 0, status harus Habis.\n");
+                return;
+            }
+            temp->status = new_stat;
             printf("Status berhasil diperbarui.\n");
             return;
         }
@@ -331,7 +322,11 @@ void jalankan_sistem() {
         }
         
         if(pilih == 1) {
-            tambahBarang();
+            if(jumlah_node >= 27) {
+                printf("Kapasitas memori sudah penuh! Tidak bisa menambah data.\n");
+            } else {
+                tambahBarang();
+            }
         }
         else if(pilih == 2) {
             char id[8];
@@ -350,7 +345,7 @@ void jalankan_sistem() {
             char stok_str[10];
             printf("ID Barang (maks 7 karakter):\n");
             bacaInput(id, 8);
-            printf("Stok baru (angka bulat):\n");
+            printf("Jumlah (positif utk nambah, negatif utk ngambil):\n");
             bacaInput(stok_str, 10);
             updateStok(id, atoi(stok_str));
         }

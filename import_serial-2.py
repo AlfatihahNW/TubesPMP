@@ -70,13 +70,14 @@ for baris in baris_semua:
         while ser.in_waiting > 0:
             baca = baca + ser.read().decode('utf-8', errors='ignore')
         
-        if "Berhasil menambahkan data." in baca:
-            print("Pengiriman sukses.")
-        elif "Kapasitas memori hampir habis!" in baca:
-            print("Peringatan: Memori Arduino penuh. Menghentikan pengiriman otomatis.")
+        if baca:
+            print(baca, end="")
+            
+        if "Kapasitas memori hampir habis!" in baca:
             break
-        else:
-            print("Pengiriman gagal.")
+            
+        if indeks >= 24:
+            break
             
         indeks += 1
 
